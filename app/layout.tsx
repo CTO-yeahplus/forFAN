@@ -2,7 +2,7 @@ import "./globals.css";
 import DynamicIslandProvider from "@/components/DynamicIsland"; // 👈 Import
 
 export const metadata = {
-  title: "forFAN — Apple CMO View",
+  title: "forFAN — LK Ventures NX View",
   description: "forFAN을 '찍는 앱'이 아닌 '경험을 설계하는 브랜드 플랫폼'으로",
 };
 
