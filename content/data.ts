@@ -292,9 +292,6 @@ export const navLinks = [
   { href: "#dosdonts", label: "DO / DON'T" },
 ] as const;
 
-// content/data.ts 에 아래 내용을 추가하세요.
-import { CardItem } from "./types";
-
 export const appleIdentityItems: CardItem[] = [
   {
     id: "haptic",
