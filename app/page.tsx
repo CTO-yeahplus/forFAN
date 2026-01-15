@@ -1,65 +1,85 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { LanguageProvider } from "@/lib/useLanguage"; // 👈 Provider Import
+import ScrollReveal from "@/components/ScrollReveal";
+import SectionShell from "@/components/SectionShell";
+import HeroSection from "@/components/sections/HeroSection";
+import PrincipleSection from "@/components/sections/PrincipleSection";
+import JourneySection from "@/components/sections/JourneySection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
+import AppleIdentitySection from "@/components/sections/AppleIdentitySection";
+import AppleWalletSection from "@/components/sections/AppleWalletSection";
+import QuietRewardsSection from "@/components/sections/QuietRewardsSection";
+import RevenueSection from "@/components/sections/RevenueSection";
+import PartnersSection from "@/components/sections/PartnersSection";
+import CreatorEconomySection from "@/components/sections/CreatorEconomySection";
+import DosDontsSection from "@/components/sections/DosDontsSection";
+import FloatingDock from "@/components/FloatingDock";
+
+export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    /* 🟢 최상위 래퍼를 LanguageProvider로 설정 */
+    <LanguageProvider>
+      
+      {/* 이제 FloatingDock이 Provider 내부에 있으므로 에러가 사라집니다 */}
+      <FloatingDock />
+      
+      <main>
+        <HeroSection />
+
+        <div className="container" style={{ paddingTop: 40 }}>
+          <ScrollReveal delay={100}><PrincipleSection /></ScrollReveal>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        
+        <div className="container">
+          <SectionShell id="journey" className="theme-clean">
+            <JourneySection />
+          </SectionShell>
         </div>
+
+        <div className="container">
+          <SectionShell id="experience" className="theme-mist">
+             <ExperienceSection />
+          </SectionShell>
+        </div>
+
+        <AppleIdentitySection />
+        
+        <div className="container">
+          <AppleWalletSection /> 
+        </div>
+
+        <QuietRewardsSection />
+
+        {/* Revenue Section (Self-contained Theme) */}
+        <RevenueSection />
+
+        {/* Partners Section (Self-contained Theme) */}
+        <PartnersSection />
+
+        {/* Creator Economy Section (Self-contained Theme) */}
+        <CreatorEconomySection />
+
+        <div className="container">
+           <SectionShell id="dosdonts" className="theme-clean">
+             <DosDontsSection />
+           </SectionShell>
+        </div>
+
+        <footer className="footer container" style={{ marginBottom: 100 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+            <div>
+              <div style={{ fontWeight: 800, color: "var(--text-primary)" }}>forFAN Global · Experience-first Brief</div>
+              <div style={{ marginTop: 6, color: "var(--text-secondary)" }}>
+                Designed by LK Ventures for customers.
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+               <span className="kbd">Confidential</span>
+            </div>
+          </div>
+        </footer>
       </main>
-    </div>
+    </LanguageProvider>
   );
 }

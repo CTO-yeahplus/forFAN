@@ -1,26 +1,315 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Apple Pro Color Palette */
+  --bg: #f5f5f7;
+  --card-bg: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --text-tertiary: #a1a1a6;
+  --accent-blue: #0071e3;
+  --border-light: rgba(0, 0, 0, 0.05);
+  
+  /* Easing */
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+/* 🟢 1. Shared Layout System */
+.container {
+  max-width: 1080px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+
+/* Bento Grid (ItemCard용) */
+.bento-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .bento-grid-container { grid-template-columns: 1fr; }
+}
+
+/* Typography */
+.h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 0 0 24px 0;
+  color: #1d1d1f;
+}
+
+.h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+  color: #1d1d1f;
+}
+
+.lead {
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 920px;
+  margin: 0 auto 50px;
+  word-break: keep-all;
+}
+.lead b { color: var(--text-primary); }
+
+/* 🟢 2. Hero Section Styles (복구됨) */
+.hero { padding: 60px 0 40px; }
+.kicker { 
+  font-size: 13px; font-weight: 600; color: #f56300; 
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; 
+}
+.sub { 
+  font-size: 20px; line-height: 1.6; color: var(--text-secondary); 
+  max-width: 800px; margin-bottom: 40px; 
+}
+
+.heroCards {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+@media (max-width: 900px) { .heroCards { grid-template-columns: 1fr; } }
+
+.card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.02);
+}
+.quote {
+  padding: 40px;
+  background: linear-gradient(135deg, #fafafa, #f5f5f7);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+.quoteText { font-size: 24px; font-weight: 700; line-height: 1.3; color: #1d1d1f; }
+.quoteSmall { margin-top: 12px; font-size: 15px; color: var(--text-secondary); }
+.cardPad { padding: 32px; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.badge {
+  font-size: 13px; font-weight: 500; color: var(--text-secondary);
+  background: #f5f5f7; padding: 6px 12px; border-radius: 8px;
+}
+.hr { height: 1px; background: rgba(0,0,0,0.06); margin: 24px 0; }
+.kbd { 
+  font-size: 11px; font-weight: 700; text-transform: uppercase; color: #86868b;
+  border: 1px solid rgba(0,0,0,0.1); padding: 3px 6px; border-radius: 6px; 
+}
+
+/* 🟢 3. Experience Rail Styles (복구됨) */
+.rail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+@media (max-width: 768px) { .rail { grid-template-columns: 1fr; } }
+
+.railStep {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: 18px;
+  padding: 20px;
+  transition: 0.3s var(--ease-apple);
+}
+.railActive {
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  border-color: transparent;
+  transform: scale(1.02);
+}
+.railTitle { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: #1d1d1f; }
+.railDesc { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+.flowHint {
+  margin: 0 0 40px;
+  padding: 16px;
+  background: rgba(0,113,227,0.05);
+  border-radius: 12px;
+  color: #0071e3;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 🟢 4. DO / DON'T Styles (복구됨) */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; } }
+
+.doDont {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+.listTitle {
+  font-size: 18px; font-weight: 800; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* 기존 Bullets 재정의 (ItemCard와 DoDont 공용) */
+.bullets { list-style: none; padding: 0; margin: 0; }
+.bullets li {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #424245;
+  line-height: 1.6;
+}
+.bullets li::before {
+  content: "•"; position: absolute; left: 0; color: #d2d2d7;
+}
+
+/* 🟢 5. Nav & Footer (유지) */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  background: rgba(245, 245, 247, 0.8);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.navInner { display: flex; justify-content: space-between; padding: 14px 0; align-items: center; }
+.navLinks { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { padding: 8px 16px; border-radius: 99px; font-size: 12px; font-weight: 600; background: rgba(0,0,0,0.04); color: var(--text-secondary); transition: 0.2s; text-decoration: none; }
+.pill:hover { background: #000; color: #fff; }
+
+.footer { padding: 80px 0; border-top: 1px solid rgba(0,0,0,0.05); color: var(--text-secondary); font-size: 12px; margin-top: 60px; }
+
+/* 🟢 6. Animation Utility */
+.reveal-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease-apple), transform 0.8s var(--ease-apple);
+  display: block; 
+}
+.reveal-visible { opacity: 1; transform: translateY(0); }
+
+/* ... 기존 코드 아래에 추가 ... */
+
+/* 🟢 Ambient Aurora Background */
+.aurora-bg {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: 
+    radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.8;
+  animation: aurora-move 20s ease infinite alternate;
+  pointer-events: none; /* 클릭 방해 금지 */
+}
+
+@keyframes aurora-move {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-2%, 2%) scale(1.05); }
+  100% { transform: translate(2%, -2%) scale(1); }
+}
+
+/* 🟢 Text Gradient (강조용) */
+.text-gradient {
+  background: linear-gradient(135deg, #1d1d1f 0%, #86868b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ... 기존 globals.css 내용 아래에 추가 ... */
+
+/* 🟢 Section Box System (공통) */
+.section-island {
+  border-radius: 48px; /* 더 둥글고 유려하게 */
+  padding: 80px 40px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+  /* 기본적으로 모든 섹션에 미세한 깊이감 부여 */
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+  .section-island { padding: 40px 24px; border-radius: 32px; margin: 24px auto; }
+}
+
+/* ⚪️ Theme 1: Clean White (Journey, Do/Dont) */
+.theme-clean {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+/* 🌫️ Theme 2: Soft Mist (Experience, Revenue) */
+.theme-mist {
+  background: #fbfbfd;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* 💎 Theme 3: Flashy Growth (Partners - 수익 극대화) */
+.theme-growth {
+  background: linear-gradient(135deg, #F0F9FF 0%, #E6FFFA 50%, #F5F3FF 100%);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+/* 움직이는 오로라 효과 (Partners용) */
+.theme-growth::before {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(52, 199, 89, 0.15), transparent 60%),
+              radial-gradient(circle at 80% 20%, rgba(0, 113, 227, 0.15), transparent 50%);
+  animation: aurora-spin 15s linear infinite;
+  z-index: 0; pointer-events: none;
+}
+
+/* 🪙 Theme 4: Flashy Gold (Quiet Rewards - 코인) */
+.theme-gold {
+  background: linear-gradient(180deg, #FFFBF0 0%, #FFFFFF 80%);
+  border: 1px solid rgba(218, 165, 32, 0.1);
+}
+/* 골드 쉬머 효과 (Rewards용) */
+.theme-gold::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.15) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, rgba(218, 165, 32, 0.03) 0px, rgba(218, 165, 32, 0.03) 1px, transparent 1px, transparent 10px);
+  z-index: 0; pointer-events: none;
+}
+
+@keyframes aurora-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
