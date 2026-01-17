@@ -1,7 +1,10 @@
 "use client";
 
+import Anchor from "@/components/Anchor";
+
 // 🟢 [Deep Dive] 모바일 앱 실무 구현을 위한 상세 기술 명세 (Implementation Detail)
 const mobileAppSpecs = [
+  // ... (Phase 1 ~ 6 기존 내용 유지) ...
   {
     phase: "1. Experience Flow",
     title: "Customer Journey & Navigation",
@@ -118,6 +121,24 @@ const mobileAppSpecs = [
         desc: "판매 알림 수신 시, 앱을 열지 않고도 알림 센터에서 판매된 프레임 이미지와 수익 금액을 바로 확인할 수 있도록 커스텀 UI(Notification Content Extension) 구현."
       }
     ]
+  },
+  // 🟢 [New] Product Guardrails (개발 금지 사항)
+  {
+    phase: "7. Product Guardrails",
+    title: "⛔ What NOT to Develop",
+    goal: "프리미엄 브랜드 가치와 운영 효율성을 위해 절대 구현하지 않는 기능 (Anti-Patterns)",
+    features: [
+      {
+        name: "No Open Social Feed",
+        tech: "Constraint: Disable Comment DB",
+        desc: "텍스트 댓글 및 자유 게시판 기능 개발 금지. 유저 간의 소통은 오직 '좋아요(Heart)'와 '사용(Use)' 데이터로만 제한하여 운영 리소스 절감 및 브랜드 톤앤매너 유지."
+      },
+      {
+        name: "No Numerical Ranking",
+        tech: "Algorithm: Shuffle & Personalized Sort",
+        desc: "'Top 100' 등 줄세우기 식 랭킹 UI 금지. 대신 개인화 알고리즘 기반의 'Trending', 'For You' 큐레이션을 노출하여 신규 크리에이터의 박탈감 방지 및 탐색 재미 강화."
+      }
+    ]
   }
 ];
 
@@ -137,11 +158,11 @@ export default function SpecsPage() {
 
       <main className="container doc-body">
         <div className="doc-intro">
-          <div className="badge-beta">Engineering Spec v2.1</div>
+          <div className="badge-beta">Engineering Spec v2.2</div>
           <h1 className="h1">App Implementation Guide</h1>
           <p className="lead">
             forFAN 앱의 <b>사용자 경험(UX)</b>과 <b>비즈니스 목표</b>를 달성하기 위한 상세 기술 명세서입니다.<br/>
-            개발팀은 아래 명세된 <b>Native API</b>와 <b>Performance Constraint</b>를 준수하여 구현해야 합니다.
+            개발팀은 아래 명세된 <b>Native API</b>를 준수하고, <b>금지된 패턴(Guardrails)</b>을 철저히 배제해야 합니다.
           </p>
         </div>
 
@@ -154,7 +175,7 @@ export default function SpecsPage() {
               </div>
               
               <div className="goal-box">
-                <span className="goal-label">🎯 UX & Perf Goal:</span> {phase.goal}
+                <span className="goal-label">Goal:</span> {phase.goal}
               </div>
 
               <div className="feature-table">
