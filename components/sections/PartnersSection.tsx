@@ -5,29 +5,39 @@ import SectionShell from "../SectionShell";
 import ScrollReveal from "../ScrollReveal";
 import { partnerValue } from "@/content/data";
 import ItemCard from "../ItemCard";
-import { useState } from "react";
-import { useLanguage } from "@/lib/useLanguage"; // 👈 다국어 지원
+import { useState, useEffect } from "react";
+import { useLanguage } from "@/lib/useLanguage";
 
 export default function PartnersSection() {
   const { t } = useLanguage();
   const [visitors, setVisitors] = useState(1000); 
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Logic
   const conversionRate = 0.45;
   const ticketPrice = 5000;
   const uplift = Math.floor(visitors * conversionRate * ticketPrice);
-  const progress = (visitors - 500) / (5000 - 500); // 0 ~ 1
+  
+  // Progress (0 ~ 1)
+  const min = 500;
+  const max = 5000;
+  const progress = (visitors - min) / (max - min);
 
-  // 🌈 Dynamic Color Logic (Blue -> Purple -> Red)
+  // 🌈 Dynamic Color Logic
   let resultColor = "#0071e3"; // Default: Blue
-  let glowColor = "rgba(0, 113, 227, 0.1)";
+  let glowColor = "rgba(0, 113, 227, 0.4)";
+  let bgGlow = "rgba(0, 113, 227, 0.05)";
 
   if (progress > 0.7) { 
-    // 🔥 High: Red (강렬한 수익)
+    // 🔥 High: Red
     resultColor = "#FF3B30"; 
-    glowColor = "rgba(255, 59, 48, 0.2)";
+    glowColor = "rgba(255, 59, 48, 0.5)";
+    bgGlow = "rgba(255, 59, 48, 0.08)";
   } else if (progress > 0.4) { 
-    // 🔮 Mid: Purple (성장 단계)
+    // 🔮 Mid: Purple
     resultColor = "#AF52DE"; 
-    glowColor = "rgba(175, 82, 222, 0.15)";
+    glowColor = "rgba(175, 82, 222, 0.5)";
+    bgGlow = "rgba(175, 82, 222, 0.08)";
   }
 
   return (
@@ -38,12 +48,13 @@ export default function PartnersSection() {
       />
 
       <ScrollReveal>
-        {/* Simulator: Dynamic Glow Effect */}
+        {/* Simulator: Glassmorphism + Dynamic Glow */}
         <div 
           className="simulator-glass"
           style={{ 
-            boxShadow: `0 20px 60px ${glowColor}`,
-            borderColor: progress > 0.7 ? "rgba(255, 59, 48, 0.3)" : "rgba(255,255,255,0.4)"
+            boxShadow: `0 30px 80px -20px ${glowColor}`,
+            borderColor: progress > 0.7 ? "rgba(255, 59, 48, 0.3)" : "rgba(255,255,255,0.4)",
+            background: `linear-gradient(180deg, rgba(255,255,255,0.8) 0%, ${bgGlow} 100%)`
           }}
         >
           <div className="sim-header">
@@ -52,87 +63,155 @@ export default function PartnersSection() {
           </div>
 
           <div className="sim-body">
+            {/* Left: Input Control */}
             <div className="input-group">
-              <label>Visitors: <b>{visitors.toLocaleString()}</b></label>
-              <input 
-                type="range" min="500" max="5000" step="100" 
-                value={visitors} onChange={(e) => setVisitors(Number(e.target.value))}
-                className="slider"
-                style={{ 
-                  background: `linear-gradient(90deg, ${resultColor} ${progress * 100}%, #e5e5ea ${progress * 100}%)` 
-                }}
-              />
-              <div className="range-labels"><span>Small</span><span>Flagship</span></div>
+              <label>
+                Daily Visitors
+                <span className={`visitor-badge ${isDragging ? 'active' : ''}`} style={{ color: resultColor }}>
+                  {visitors.toLocaleString()}
+                </span>
+              </label>
+              
+              <div className="slider-container">
+                <input 
+                  type="range" min={min} max={max} step="100" 
+                  value={visitors} 
+                  onChange={(e) => setVisitors(Number(e.target.value))}
+                  onMouseDown={() => setIsDragging(true)}
+                  onMouseUp={() => setIsDragging(false)}
+                  onTouchStart={() => setIsDragging(true)}
+                  onTouchEnd={() => setIsDragging(false)}
+                  className="slider"
+                  style={{ 
+                    background: `linear-gradient(90deg, ${resultColor} ${progress * 100}%, #e5e5ea ${progress * 100}%)` 
+                  }}
+                />
+              </div>
+              <div className="range-labels">
+                <span>Small Store</span>
+                <span>Flagship</span>
+              </div>
             </div>
 
-            <div className="result-group">
-              <div className="result-label">Monthly Uplift</div>
+            {/* Right: Result Display */}
+            <div className="result-group" style={{ borderColor: progress > 0.7 ? resultColor : 'transparent' }}>
+              <div className="result-label">Monthly Revenue Uplift</div>
               <div 
                 className="result-value" 
                 style={{ 
                   color: resultColor, 
-                  transform: `scale(${1 + progress * 0.2})`,
-                  textShadow: progress > 0.7 ? `0 0 20px ${glowColor}` : 'none'
+                  transform: `scale(${1 + progress * 0.1})`,
+                  textShadow: progress > 0.6 ? `0 0 30px ${glowColor}` : 'none'
                 }}
               >
                 + ₩{uplift.toLocaleString()}
               </div>
-              <div className="result-desc">*Based on 45% Retention Rate</div>
+              <div className="result-desc">
+                *Based on <b style={{color: resultColor}}>45%</b> Retention Rate
+              </div>
             </div>
           </div>
         </div>
       </ScrollReveal>
 
-      <div className="bento-grid-container" style={{ marginTop: 60 }}>
-        {partnerValue.map((it) => (
-          <ItemCard key={it.id} item={it} />
+      {/* 🍱 Alive Bento Grid */}
+      <div className="alive-grid-wrapper" style={{ marginTop: 60 }}>
+        {partnerValue.map((it, idx) => (
+          <ScrollReveal key={it.id} delay={idx * 100}>
+            <div className="alive-card">
+              <ItemCard item={it} />
+              <div className="hover-glow" />
+            </div>
+          </ScrollReveal>
         ))}
       </div>
 
       <style jsx>{`
-        /* Glassmorphism Simulator */
+        /* Glass Simulator */
         .simulator-glass {
-          background: rgba(255, 255, 255, 0.65);
-          backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-          border-radius: 24px; padding: 40px;
-          border: 1px solid rgba(255,255,255,0.4);
-          margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;
-          transition: all 0.3s ease;
+          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+          border-radius: 32px; padding: 48px;
+          border: 1px solid rgba(255,255,255,0.6);
+          margin-bottom: 60px; max-width: 900px; margin-left: auto; margin-right: auto;
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .sim-header { text-align: center; margin-bottom: 40px; }
-        .sim-header h3 { font-size: 24px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
-        .sim-header p { color: #86868b; font-size: 16px; word-break: keep-all; }
+        .sim-header { text-align: center; margin-bottom: 48px; }
+        .sim-header h3 { font-size: 28px; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .sim-header p { color: #86868b; font-size: 17px; word-break: keep-all; }
         
-        .sim-body { display: flex; gap: 40px; align-items: center; justify-content: space-between; }
+        .sim-body { display: flex; gap: 60px; align-items: center; justify-content: space-between; }
         
-        .input-group { flex: 1; }
-        .input-group label { display: block; font-size: 15px; color: #1d1d1f; margin-bottom: 16px; }
-        .input-group label b { font-size: 20px; color: #1d1d1f; margin-left: 8px; }
+        /* Input Group */
+        .input-group { flex: 1; display: flex; flex-direction: column; }
+        .input-group label { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; color: #86868b; margin-bottom: 20px; }
+        .visitor-badge { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; transition: transform 0.2s; }
+        .visitor-badge.active { transform: scale(1.1); }
         
+        /* Custom Slider Styling */
+        .slider-container { position: relative; height: 30px; display: flex; align-items: center; }
         .slider { 
-          -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; outline: none; margin-bottom: 12px; 
-          transition: background 0.1s; 
+          -webkit-appearance: none; width: 100%; height: 6px; border-radius: 99px; outline: none; 
+          transition: background 0.1s; cursor: pointer;
         }
         .slider::-webkit-slider-thumb { 
-          -webkit-appearance: none; width: 32px; height: 32px; border-radius: 50%; background: #fff; 
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: grab; transition: transform 0.1s; 
-          border: 1px solid rgba(0,0,0,0.05);
+          -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #fff; 
+          box-shadow: 0 4px 15px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05); 
+          cursor: grab; transition: transform 0.2s, box-shadow 0.2s; 
+          margin-top: -1px; /* Align visual center if needed */
         }
         .slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
-        .slider:active::-webkit-slider-thumb { cursor: grabbing; transform: scale(1.2); }
-        
-        .range-labels { display: flex; justify-content: space-between; font-size: 12px; color: #86868b; font-weight: 600; }
-        
-        .result-group { 
-          background: rgba(255,255,255,0.8); padding: 24px 40px; border-radius: 16px; 
-          text-align: center; min-width: 280px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+        .slider:active::-webkit-slider-thumb { 
+          cursor: grabbing; transform: scale(1.2); 
+          box-shadow: 0 0 0 10px ${glowColor}; /* Tactile Feedback Ring */
         }
-        .result-label { font-size: 14px; font-weight: 600; color: #86868b; margin-bottom: 8px; text-transform: uppercase; }
-        .result-value { font-size: 36px; font-weight: 800; margin-bottom: 6px; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .result-desc { font-size: 11px; color: #a1a1a6; }
+        
+        .range-labels { display: flex; justify-content: space-between; font-size: 12px; color: #a1a1a6; font-weight: 600; margin-top: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* Result Group */
+        .result-group { 
+          background: rgba(255,255,255,0.6); padding: 32px 48px; border-radius: 24px; 
+          text-align: center; min-width: 320px; 
+          box-shadow: 0 10px 40px rgba(0,0,0,0.05); 
+          border: 2px solid transparent;
+          transition: border-color 0.3s, transform 0.3s;
+        }
+        .result-label { font-size: 13px; font-weight: 700; color: #86868b; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .result-value { font-size: 42px; font-weight: 800; margin-bottom: 8px; font-variant-numeric: tabular-nums; letter-spacing: -1px; transition: color 0.3s; }
+        .result-desc { font-size: 13px; color: #86868b; font-weight: 500; }
 
-        @media (max-width: 768px) { .sim-body { flex-direction: column; gap: 30px; } .result-group { width: 100%; } }
+        /* Alive Bento Grid Wrapper */
+        .alive-grid-wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); /* Assuming 3 items, adjust based on partnerValue length */
+          gap: 24px;
+        }
+
+        .alive-card {
+          position: relative;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: 24px; /* Match ItemCard radius */
+        }
+        
+        .alive-card:hover {
+          transform: translateY(-8px);
+          z-index: 2;
+        }
+
+        /* Hover Glow Effect for Cards */
+        .hover-glow {
+          position: absolute; inset: 0; border-radius: 24px;
+          box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+          opacity: 0; transition: opacity 0.3s; pointer-events: none;
+          z-index: -1;
+        }
+        .alive-card:hover .hover-glow { opacity: 1; }
+
+        @media (max-width: 900px) { 
+          .sim-body { flex-direction: column; gap: 40px; } 
+          .result-group { width: 100%; min-width: auto; } 
+          .alive-grid-wrapper { grid-template-columns: 1fr; }
+        }
       `}</style>
     </SectionShell>
   );

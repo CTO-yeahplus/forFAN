@@ -51,14 +51,17 @@ export default function Page() {
 
         <QuietRewardsSection />
 
+        {/* Creator Economy Section (Self-contained Theme) */}
+        
+        <CreatorEconomySection />
+
         {/* Revenue Section (Self-contained Theme) */}
         <RevenueSection />
 
         {/* Partners Section (Self-contained Theme) */}
         <PartnersSection />
 
-        {/* Creator Economy Section (Self-contained Theme) */}
-        <CreatorEconomySection />
+
 
         <div className="container">
            <SectionShell id="dosdonts" className="theme-clean">
@@ -76,6 +79,10 @@ export default function Page() {
             </div>
             <div style={{ textAlign: "right" }}>
                <span className="kbd">Confidential</span>
+               {/* 🟢 개발자 문서 링크 추가 */}
+               <a href="/specs" style={{ fontSize: 11, color: "#86868b", textDecoration: "none", opacity: 0.6 }} className="hover:opacity-100 transition-opacity">
+                 View Functional Specs →
+               </a>
             </div>
           </div>
         </footer>

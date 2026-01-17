@@ -151,27 +151,6 @@ export const experienceItems: CardItem[] = [
   },
 ];
 
-export const journeyMap: JourneyItem[] = [
-  {
-    phase: "Before",
-    icon: "map",
-    title: "Before — ‘오늘은 뭘 찍지?’",
-    bullets: ["Moment Preview로 ‘오늘의 프레임’ 제안", "매장/지역 기반 ‘가까운 경험’ 제안(조용히)", "촬영 팁 한 줄로 불안감 낮추기"],
-  },
-  {
-    phase: "During",
-    icon: "hint",
-    title: "During — ‘지금 이 순간을 더 잘’",
-    bullets: ["프레임별 Quiet Pose Tip (1~2줄)", "People Tag: 누구와 함께인지 남기기", "리워드는 보이지 않게 누적(Quiet Rewards)"],
-  },
-  {
-    phase: "After",
-    icon: "clock",
-    title: "After — ‘여운이 다시 방문을 만든다’",
-    bullets: ["Gentle Follow-up으로 자연스러운 리마인드", "Taste Memory로 ‘내 취향’ 문장화", "Quiet Circles로 소속감 + UGC 흐름 생성"],
-  },
-];
-
 export const quietRewardsCopy: CopyBucket[] = [
   {
     icon: "gift",
@@ -210,6 +189,113 @@ export const revenueLogic: LogicItem[] = [
     bullets: ["자발적 공유/추천 ↑", "신규 유입 CAC ↓", "프레임이 ‘밈’처럼 확산"],
   },
 ];
+
+// ... (brandItems 등 상단 코드 유지) ...
+
+// 1. [Main Page용] 비즈니스/마케팅 관점 (되돌림)
+export const journeyMap: JourneyItem[] = [
+  {
+    phase: "Before",
+    icon: "map",
+    title: "Before — ‘오늘은 뭘 찍지?’",
+    bullets: ["Moment Preview로 ‘오늘의 프레임’ 제안", "매장/지역 기반 ‘가까운 경험’ 제안(조용히)", "촬영 팁 한 줄로 불안감 낮추기"],
+  },
+  {
+    phase: "During",
+    icon: "hint",
+    title: "During — ‘지금 이 순간을 더 잘’",
+    bullets: ["프레임별 Quiet Pose Tip (1~2줄)", "People Tag: 누구와 함께인지 남기기", "리워드는 보이지 않게 누적(Quiet Rewards)"],
+  },
+  {
+    phase: "After",
+    icon: "clock",
+    title: "After — ‘여운이 다시 방문을 만든다’",
+    bullets: ["Gentle Follow-up으로 자연스러운 리마인드", "Taste Memory로 ‘내 취향’ 문장화", "Quiet Circles로 소속감 + UGC 흐름 생성"],
+  },
+];
+
+// 2. [Spec Page용] 개발/기획 구체화 명세 (새로 추가)
+export interface SpecItem {
+  phase: string;
+  title: string;
+  goal: string; // UX 목표
+  features: {
+    name: string;
+    tech: string; // 구현 기술 (예: Dynamic Island, Haptic)
+    desc: string; // 상세 로직
+  }[];
+}
+
+export const devSpecs: SpecItem[] = [
+  {
+    phase: "Phase 1: Before (Entry)",
+    title: "설렘의 설계",
+    goal: "사용자의 '심심함'을 '방문 의도'로 전환한다.",
+    features: [
+      {
+        name: "Moment Preview Hero",
+        tech: "Weather API + Time Logic",
+        desc: "홈 화면 최상단 대형 카드. 날씨(비/맑음)와 시간(낮/밤) 조건에 따라 'Blue Mood' 등 맞춤 프레임을 큐레이션하여 노출."
+      },
+      {
+        name: "Smart Notification",
+        tech: "Geofencing + Dynamic Island",
+        desc: "매장 반경 100m 진입 시 푸시가 아닌 '다이내믹 아일랜드' 확장. 대기 인원수와 '지금 찍기 좋음' 상태 표시."
+      },
+      {
+        name: "Mood Cheat Sheet",
+        tech: "Bottom Sheet UI",
+        desc: "프레임 상세 진입 시 '이 프레임은 흰 옷이 잘 받아요' 등 실패 방지 팁을 텍스트로 간결하게 제공."
+      }
+    ]
+  },
+  {
+    phase: "Phase 2: During (Action)",
+    title: "몰입과 기록",
+    goal: "촬영 현장에서 폰을 꺼내게 만드는 확실한 '이유(Utility)'를 제공한다.",
+    features: [
+      {
+        name: "Wrist Guide",
+        tech: "Apple Watch App / Widget",
+        desc: "부스 안에서 폰을 볼 필요 없이, 애플워치만 힐끔거려도 현재 프레임의 추천 포즈 아이콘 4개를 순서대로 표시."
+      },
+      {
+        name: "People Tagging Logic",
+        tech: "Post-Scan Modal",
+        desc: "QR 스캔 직후 '오늘 누구와 함께였나요?' 바텀 시트 호출. [연인/친구/가족/혼자] 태그 데이터 수집."
+      },
+      {
+        name: "Haptic Feedback Reward",
+        tech: "Core Haptics (Taptic Engine)",
+        desc: "촬영/결제 완료 시 화면 팝업(+100P)을 띄우지 않고, 묵직하고 고급스러운 진동 패턴으로 보상 감각 전달."
+      }
+    ]
+  },
+  {
+    phase: "Phase 3: After (Retention)",
+    title: "데이터가 된 취향",
+    goal: "단순 파일 저장이 아닌, '나를 알아주는 브랜드'로 인식시킨다.",
+    features: [
+      {
+        name: "Taste Receipt",
+        tech: "Image Generation (Canvas)",
+        desc: "월말 결산 시 영수증 형태의 타이포그래피 이미지 생성. '흑백 선호 70%, #Minimalist' 등의 취향 분석 텍스트 포함."
+      },
+      {
+        name: "Memory Widget",
+        tech: "iOS Home Widget",
+        desc: "앱 미접속 상태에서도 홈 화면에 '작년 오늘의 추억' 사진을 랜덤 롤링하여 재방문 트리거 역할 수행."
+      },
+      {
+        name: "Quiet Circle View",
+        tech: "Horizontal Scroll View",
+        desc: "프레임 하단에 '이 프레임을 쓴 사람들'의 프로필 사진만 작게 나열. 클릭 시 해당 유저의 공개 사진 모달 팝업."
+      }
+    ]
+  }
+];
+
+// ... (아래 partnerValue 등 나머지 코드는 유지) ...
 
 export const partnerValue: CardItem[] = [
   {

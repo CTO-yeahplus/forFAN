@@ -98,6 +98,17 @@ export default function Icon({ name }: { name?: string }) {
           <path d="M17 6v12" />
         </svg>
       );
+    case "watch":
+      return (
+        <svg {...common}>
+          <rect x="5" y="2" width="14" height="20" rx="4" ry="4" />
+          <path d="M9 2V1" />
+          <path d="M15 2V1" />
+          <path d="M9 22v1" />
+          <path d="M15 22v1" />
+          <line x1="16" y1="10" x2="16" y2="12" /> {/* Digital Crown */}
+        </svg>
+      );
     default:
       return (
         <svg {...common}>
