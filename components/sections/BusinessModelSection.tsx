@@ -14,7 +14,7 @@ export default function BusinessModelSection() {
         title: "C2E Creator Ecosystem",
         goal: "창작자의 영감이 전 세계의 순간으로 실시간 동기화되는 경제 구조",
         tech: "Instant Asset Deployment & Global Sync",
-        desc: "어젯밤 X(Twitter)를 뜨겁게 달군 밈(Meme)이 오늘 아침 당신의 인생네컷 프레임이 됩니다.  창작자가 '나만의 프레임' 툴로 빚어낸 영감은 즉시 글로벌 채널을 통해 판매되며, 전 세계 5,000여 개 키오스크와 지체 없이 동기화되어 문화의 속도를 그대로 촬영 현장으로 가져옵니다.",
+        desc: "어젯밤 X(Twitter)를 뜨겁게 달군 밈(Meme)이 오늘 아침 당신의 인생네컷 프레임이 됩니다.  창작자가 '나만의 프레임' 툴로 빚어낸 영감은 즉시 글로벌 채널을 통해 판매되며, 전 세계 3,000여 개 키오스크와 지체 없이 동기화되어 문화의 속도를 그대로 촬영 현장으로 가져옵니다.",
         accent: "#A020F0", 
         icon: "spark"
       },
