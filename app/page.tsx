@@ -15,6 +15,7 @@ import PartnersSection from "@/components/sections/PartnersSection";
 import CreatorEconomySection from "@/components/sections/CreatorEconomySection";
 import DosDontsSection from "@/components/sections/DosDontsSection";
 import FloatingDock from "@/components/FloatingDock";
+import BusinessModelSection from "@/components/sections/BusinessModelSection";
 
 export default function Page() {
   return (
@@ -60,6 +61,8 @@ export default function Page() {
 
         {/* Partners Section (Self-contained Theme) */}
         <PartnersSection />
+
+        <BusinessModelSection />
 
 
 

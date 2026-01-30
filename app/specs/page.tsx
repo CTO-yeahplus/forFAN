@@ -1,10 +1,7 @@
 "use client";
 
-import Anchor from "@/components/Anchor";
-
 // 🟢 [Deep Dive] 모바일 앱 실무 구현을 위한 상세 기술 명세 (Implementation Detail)
 const mobileAppSpecs = [
-  // ... (Phase 1 ~ 6 기존 내용 유지) ...
   {
     phase: "1. Experience Flow",
     title: "Customer Journey & Navigation",
@@ -67,19 +64,19 @@ const mobileAppSpecs = [
     ]
   },
   {
-    phase: "4. Value Redemption",
-    title: "Quiet Rewards (4CUT Coin)",
-    goal: "결제 과정을 '지출'이 아닌 '경험'으로 인식하게 만드는 마이크로 인터랙션",
+    phase: "4. Business Model (C2E)",
+    title: "Settlement & Transaction",
+    goal: "다국적 통화 정산 오차 0% 및 생체 인식 기반 무결성 거래 환경 구축",
     features: [
       {
-        name: "Vector Particle Animation",
-        tech: "Lottie / Rive (GPU Accelerated)",
-        desc: "잠금 해제 순간 50개 이상의 파티클이 물리 법칙에 따라 흩어지는 고품질 벡터 애니메이션. JSON 파일은 원격 CDN에서 gzip 압축 전송하며, 로컬 캐싱으로 재진입 시 로딩 제거."
+        name: "Settlement Engine",
+        tech: "Server-Side Precision Calculation",
+        desc: "다중 서버 클러스터에서 부동 소수점 오차 없는 통화 정산 로직 구현. 글로벌 환율 API와 연동하여 유저의 로컬 통화로 실시간 정산 및 FCM/WebSocket을 통한 앱 반영."
       },
       {
-        name: "Biometric Auth Integration",
-        tech: "LocalAuthentication (FaceID/TouchID)",
-        desc: "코인 차감 시 `CryptoObject`를 생성하여 생체 인증과 연동. 단순 인증 성공/실패가 아닌, 인증 토큰(Signature)을 서버로 전송하여 트랜잭션 위변조 원천 차단."
+        name: "Biometric Marketplace",
+        tech: "Biometric Auth (FaceID / TouchID)",
+        desc: "인증 성공 시 로컬 기기 내 Keychain에서 암호화된 트랜잭션 서명 객체(CryptoObject)를 생성하여 서버로 전달. 복제 불가능한 고유 서명을 통해 거래 보안성 극대화."
       }
     ]
   },
@@ -97,46 +94,6 @@ const mobileAppSpecs = [
         name: "Background Upload Task",
         tech: "Background Fetch API / WorkManager",
         desc: "고용량 프레임 데이터 업로드 중 앱을 닫아도, OS 백그라운드 스레드에서 업로드를 계속 진행. 완료 시 로컬 푸시 알림으로 성공 여부 피드백."
-      },
-      {
-        name: "Home Screen Widget",
-        tech: "WidgetKit (SwiftUI) / Jetpack Glance",
-        desc: "앱 실행 없이 내 채널의 수익과 판매량을 보여주는 네이티브 위젯. 타임라인 프로바이더를 통해 15분 단위로 데이터를 저전력 백그라운드 갱신."
-      }
-    ]
-  },
-  {
-    phase: "6. Business Logic",
-    title: "Revenue Maximization",
-    goal: "사용자 행동에 0.5초 이내로 반응하는 실시간 데이터 파이프라인",
-    features: [
-      {
-        name: "Real-time Socket Pipeline",
-        tech: "Socket.io (WebSocket) with Heartbeat",
-        desc: "프레임 판매 발생 시 Polling 방식이 아닌 WebSocket으로 즉시(Latency < 500ms) 클라이언트에 이벤트 전송. 연결 끊김 시 Exponential Backoff 전략으로 자동 재연결."
-      },
-      {
-        name: "Rich Media Push",
-        tech: "Notification Service Extension",
-        desc: "판매 알림 수신 시, 앱을 열지 않고도 알림 센터에서 판매된 프레임 이미지와 수익 금액을 바로 확인할 수 있도록 커스텀 UI(Notification Content Extension) 구현."
-      }
-    ]
-  },
-  // 🟢 [New] Product Guardrails (개발 금지 사항)
-  {
-    phase: "7. Product Guardrails",
-    title: "⛔ What NOT to Develop",
-    goal: "프리미엄 브랜드 가치와 운영 효율성을 위해 절대 구현하지 않는 기능 (Anti-Patterns)",
-    features: [
-      {
-        name: "No Open Social Feed",
-        tech: "Constraint: Disable Comment DB",
-        desc: "텍스트 댓글 및 자유 게시판 기능 개발 금지. 유저 간의 소통은 오직 '좋아요(Heart)'와 '사용(Use)' 데이터로만 제한하여 운영 리소스 절감 및 브랜드 톤앤매너 유지."
-      },
-      {
-        name: "No Numerical Ranking",
-        tech: "Algorithm: Shuffle & Personalized Sort",
-        desc: "'Top 100' 등 줄세우기 식 랭킹 UI 금지. 대신 개인화 알고리즘 기반의 'Trending', 'For You' 큐레이션을 노출하여 신규 크리에이터의 박탈감 방지 및 탐색 재미 강화."
       }
     ]
   }
@@ -145,7 +102,6 @@ const mobileAppSpecs = [
 export default function SpecsPage() {
   return (
     <div className="doc-layout">
-      {/* Header */}
       <header className="doc-header">
         <div className="container header-inner">
           <div className="brand">
@@ -158,34 +114,36 @@ export default function SpecsPage() {
 
       <main className="container doc-body">
         <div className="doc-intro">
-          <div className="badge-beta">Engineering Spec v2.2</div>
+          <div className="badge-beta">Engineering Spec v2.5</div>
           <h1 className="h1">App Implementation Guide</h1>
           <p className="lead">
-            forFAN 앱의 <b>사용자 경험(UX)</b>과 <b>비즈니스 목표</b>를 달성하기 위한 상세 기술 명세서입니다.<br/>
-            개발팀은 아래 명세된 <b>Native API</b>를 준수하고, <b>금지된 패턴(Guardrails)</b>을 철저히 배제해야 합니다.
+            forFAN 앱의 <b>사용자 경험(UX)</b>과 <b>비즈니스 가치</b>를 극대화하기 위한 상세 기술 명세서입니다. [cite: 111, 112]
           </p>
         </div>
 
         <div className="specs-container">
           {mobileAppSpecs.map((phase, idx) => (
             <section key={idx} className="spec-section">
-              <div className="section-header-sticky">
-                <div className="phase-marker">{phase.phase}</div>
-                <h2 className="spec-title">{phase.title}</h2>
-              </div>
+              <div className="phase-marker">{phase.phase}</div>
+              <h2 className="spec-title">{phase.title}</h2>
               
-              <div className="goal-box">
-                <span className="goal-label">Goal:</span> {phase.goal}
+              {/* 🟢 Goal Section: 시인성 강화 */}
+              <div className="goal-banner">
+                <div className="goal-content">
+                  <span className="goal-label">GOAL</span>
+                  <p className="goal-text">{phase.goal}</p>
+                </div>
               </div>
 
-              <div className="feature-table">
+              {/* 🟢 Features: 와이드 레이아웃으로 변경하여 설명글 확보 */}
+              <div className="feature-stack">
                 {phase.features.map((feat, fIdx) => (
-                  <div key={fIdx} className="feature-row">
-                    <div className="col-meta">
-                      <span className="feat-name">{feat.name}</span>
+                  <div key={fIdx} className="feature-block">
+                    <div className="feature-header">
+                      <h3 className="feat-name">{feat.name}</h3>
                       <span className="feat-tech">{feat.tech}</span>
                     </div>
-                    <div className="col-desc">
+                    <div className="feat-desc">
                       {feat.desc}
                     </div>
                   </div>
@@ -197,56 +155,56 @@ export default function SpecsPage() {
       </main>
 
       <style jsx>{`
-        /* Apple Developer Docs Style */
-        .doc-layout { background: #fff; min-height: 100vh; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; }
-        
+        .doc-layout { background: #fff; min-height: 100vh; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; }
         .doc-header { border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); z-index: 100; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
-        .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; letter-spacing: -0.01em; }
+        .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
         .dot { width: 8px; height: 8px; background: #0071e3; border-radius: 50%; }
         .back-link { font-size: 13px; color: #0071e3; text-decoration: none; font-weight: 500; }
-        .back-link:hover { text-decoration: underline; }
 
-        .doc-body { padding-top: 60px; padding-bottom: 100px; max-width: 900px; }
-        
+        .doc-body { padding-top: 80px; padding-bottom: 120px; max-width: 900px; }
         .doc-intro { margin-bottom: 80px; border-bottom: 1px solid #e5e5e5; padding-bottom: 40px; }
-        .badge-beta { display: inline-block; font-size: 11px; font-weight: 700; color: #0071e3; background: #f0f7ff; padding: 4px 8px; border-radius: 6px; margin-bottom: 16px; border: 1px solid rgba(0, 113, 227, 0.2); font-family: SF Mono, Menlo, monospace; }
-        .h1 { font-size: 44px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; color: #1d1d1f; line-height: 1.1; }
-        .lead { font-size: 21px; line-height: 1.5; color: #86868b; font-weight: 400; }
-        .lead b { color: #1d1d1f; font-weight: 600; }
+        .badge-beta { display: inline-block; font-size: 11px; font-weight: 700; color: #0071e3; background: #f0f7ff; padding: 4px 8px; border-radius: 6px; margin-bottom: 16px; border: 1px solid rgba(0, 113, 227, 0.2); }
+        .h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.1; }
+        .lead { font-size: 22px; line-height: 1.5; color: #86868b; }
 
-        .spec-section { margin-bottom: 100px; }
-        .section-header-sticky { margin-bottom: 24px; }
-        .phase-marker { font-size: 12px; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .spec-title { font-size: 32px; font-weight: 700; letter-spacing: -0.01em; color: #1d1d1f; }
-        
-        .goal-box { 
-          background: #fbfbfd; padding: 24px 28px; border-radius: 16px; 
-          font-size: 17px; line-height: 1.6; margin-bottom: 40px; 
-          color: #1d1d1f; border-left: 4px solid #000; 
-          box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        .spec-section { margin-bottom: 120px; }
+        .phase-marker { font-size: 13px; font-weight: 700; color: #86868b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .spec-title { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 32px; }
+
+        /* 🟢 Goal Banner: 핵심 가치 강조 */
+        .goal-banner { 
+          background: #1d1d1f; color: #fff; padding: 32px; border-radius: 24px; 
+          margin-bottom: 48px; position: relative; overflow: hidden;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .goal-label { font-weight: 800; color: #000; margin-right: 8px; }
+        .goal-label { font-size: 11px; font-weight: 800; color: #0071e3; letter-spacing: 2px; display: block; margin-bottom: 12px; }
+        .goal-text { font-size: 20px; font-weight: 600; line-height: 1.4; margin: 0; word-break: keep-all; }
 
-        .feature-table { border-top: 1px solid #e5e5e5; }
-        .feature-row { display: grid; grid-template-columns: 280px 1fr; gap: 40px; padding: 32px 0; border-bottom: 1px solid #e5e5e5; align-items: start; }
-        
-        .col-meta { display: flex; flex-direction: column; gap: 8px; }
-        .feat-name { font-weight: 700; font-size: 17px; color: #1d1d1f; letter-spacing: -0.01em; }
+        /* 🟢 Feature Stack: 와이드 레이아웃 */
+        .feature-stack { display: flex; flex-direction: column; gap: 40px; }
+        .feature-block { 
+          padding-bottom: 40px; border-bottom: 1px solid #f2f2f2; 
+          display: grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        .feature-block:last-child { border-bottom: none; }
+
+        .feature-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .feat-name { font-size: 22px; font-weight: 700; color: #1d1d1f; margin: 0; }
         .feat-tech { 
-          font-size: 11px; font-family: SF Mono, Menlo, monospace; 
-          color: #d63384; background: rgba(214, 51, 132, 0.06); 
-          padding: 6px 10px; border-radius: 6px; width: fit-content; 
-          border: 1px solid rgba(214, 51, 132, 0.15); line-height: 1.4;
+          font-size: 12px; font-family: SF Mono, monospace; 
+          color: #d63384; background: rgba(214, 51, 132, 0.05); 
+          padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(214, 51, 132, 0.1);
         }
-        
-        .col-desc { font-size: 16px; line-height: 1.7; color: #333; }
+
+        .feat-desc { font-size: 17px; line-height: 1.7; color: #424245; max-width: 100%; word-break: keep-all; }
 
         @media (max-width: 768px) {
-          .h1 { font-size: 34px; }
-          .feature-row { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; }
-          .col-meta { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-          .col-desc { font-size: 15px; }
+          .h1 { font-size: 36px; }
+          .spec-title { font-size: 28px; }
+          .goal-text { font-size: 18px; }
+          .feat-name { font-size: 20px; }
+          .feature-header { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
     </div>
