@@ -16,6 +16,11 @@ import CreatorEconomySection from "@/components/sections/CreatorEconomySection";
 import DosDontsSection from "@/components/sections/DosDontsSection";
 import FloatingDock from "@/components/FloatingDock";
 import BusinessModelSection from "@/components/sections/BusinessModelSection";
+import QuestSection from "@/components/sections/QuestSection";
+import CorrelationSection from "@/components/sections/CorrelationSection";
+import BadgeSection from "@/components/sections/BadgeSection";
+
+
 
 export default function Page() {
   return (
@@ -64,7 +69,11 @@ export default function Page() {
 
         <BusinessModelSection />
 
+        <QuestSection />
 
+        <CorrelationSection />
+
+        <BadgeSection />
 
         <div className="container">
            <SectionShell id="dosdonts" className="theme-clean">

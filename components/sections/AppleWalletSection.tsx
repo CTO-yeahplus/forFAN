@@ -10,7 +10,7 @@ type Tier = "basic" | "fan" | "gold";
 export default function AppleWalletSection() {
   const { t } = useLanguage();
   const [isFlipped, setIsFlipped] = useState(false);
-  const [tier, setTier] = useState<Tier>("fan"); // Default: Platinum
+  const [tier, setTier] = useState<Tier>("fan"); // Default: Silver
 
   // 🟢 [Restored] Tier Configuration
   const tierConfig = {
@@ -23,7 +23,7 @@ export default function AppleWalletSection() {
       particleColor: null
     },
     fan: { 
-      name: "Platinum Fan", 
+      name: "Silver Fan", 
       color: "#ffffff", 
       bgClass: "fan-bg", 
       points: "850",
@@ -88,7 +88,7 @@ export default function AppleWalletSection() {
                         onClick={() => setTier(t)}
                         className={`tier-btn ${tier === t ? "active" : ""}`}
                       >
-                        {t === 'fan' ? 'Platinum' : t.charAt(0).toUpperCase() + t.slice(1)}
+                        {t === 'fan' ? 'Silver' : t.charAt(0).toUpperCase() + t.slice(1)}
                       </button>
                     ))}
                   </div>
