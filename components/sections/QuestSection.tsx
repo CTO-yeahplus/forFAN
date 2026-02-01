@@ -5,109 +5,37 @@ import ScrollReveal from "../ScrollReveal";
 import { useState } from "react";
 import { useLanguage } from "@/lib/useLanguage";
 
-// 🧩 퀘스트 데이터 (컴포넌트 외부로 이동하여 불필요한 연산 방지)
+// 🧩 퀘스트 데이터 (18종)
 const questData = [
-  // 1. Daily
-  { 
-    id: "d1", period: "Daily", title: "The Daily Spark", 
-    goal: "오늘의 히든 프레임 탐색 및 체크인", reward: "500P", 
-    detail: "🔥 Streak Flame: 연속 달성 시 불꽃 레벨 업", accent: "#FF9500" 
-  },
-  { 
-    id: "d2", period: "Daily", title: "Mood Check", 
-    goal: "오늘의 기분을 나타내는 이모지 태그 선택", reward: "100P", 
-    detail: "📅 Mood Calendar: 월별 감정 리포트 제공", accent: "#FFB340" 
-  },
-  { 
-    id: "d3", period: "Daily", title: "Lucky Box", 
-    goal: "매일 1회 무료 랜덤 박스 열기", reward: "Random P", 
-    detail: "🎁 Surprise: 최대 10,000P 당첨 기회", accent: "#FFD700" 
-  },
+  // 1. Daily (3종)
+  { id: "d1", period: "Daily", title: "The Daily Spark", goal: "오늘의 히든 프레임 탐색 및 체크인", reward: "500P", detail: "🔥 Streak Flame: 연속 달성 시 불꽃 레벨 업", accent: "#FF9500" },
+  { id: "d2", period: "Daily", title: "Mood Check", goal: "오늘의 기분을 나타내는 이모지 태그 선택", reward: "100P", detail: "📅 Mood Calendar: 월별 감정 리포트 제공", accent: "#FFB340" },
+  { id: "d3", period: "Daily", title: "Lucky Box", goal: "매일 1회 무료 랜덤 박스 열기", reward: "Random P", detail: "🎁 Surprise: 최대 10,000P 당첨 기회", accent: "#FFD700" },
 
-  // 2. Weekly
-  { 
-    id: "w1", period: "Weekly", title: "Weekly Curator", 
-    goal: "이번 주 베스트 샷 3회 공유", reward: "2,000P", 
-    detail: "🎖 Curator Badge: 프로필 하이라이트 링 적용", accent: "#AF52DE" 
-  },
-  { 
-    id: "w2", period: "Weekly", title: "Frame Hunter", 
-    goal: "이번 주 신규 출시 프레임 1회 촬영", reward: "1,000P", 
-    detail: "🆕 Trendsetter: 얼리 어답터 전용 아이콘", accent: "#D96FF2" 
-  },
-  { 
-    id: "w3", period: "Weekly", title: "Social Butterfly", 
-    goal: "친구에게 프레임 추천 링크 3회 공유", reward: "500P", 
-    detail: "🦋 Social Wing: 친구 초대 시 추가 포인트", accent: "#E086F6" 
-  },
+  // 2. Weekly (3종)
+  { id: "w1", period: "Weekly", title: "Weekly Curator", goal: "이번 주 베스트 샷 3회 공유", reward: "2,000P", detail: "🎖 Curator Badge: 프로필 하이라이트 링 적용", accent: "#AF52DE" },
+  { id: "w2", period: "Weekly", title: "Frame Hunter", goal: "이번 주 신규 출시 프레임 1회 촬영", reward: "1,000P", detail: "🆕 Trendsetter: 얼리 어답터 전용 아이콘", accent: "#D96FF2" },
+  { id: "w3", period: "Weekly", title: "Social Butterfly", goal: "친구에게 프레임 추천 링크 3회 공유", reward: "500P", detail: "🦋 Social Wing: 친구 초대 시 추가 포인트", accent: "#E086F6" },
 
-  // 3. Monthly
-  { 
-    id: "m1", period: "Monthly", title: "Monthly Muse", 
-    goal: "이달의 크리에이터 5인 응원 및 소통", reward: "10,000P", 
-    detail: "💌 Letter Archive: 내가 보낸 팬레터 수집", accent: "#0071e3" 
-  },
-  { 
-    id: "m2", period: "Monthly", title: "Genre Master", 
-    goal: "이달의 테마(예: 레트로) 프레임 3종 수집", reward: "Theme Badge", 
-    detail: "🎨 Collector Book: 테마별 도감 완성", accent: "#339AF0" 
-  },
-  { 
-    id: "m3", period: "Monthly", title: "Perfect Attendance", 
-    goal: "한 달 20일 이상 앱 방문 달성", reward: "3,000P", 
-    detail: "📅 Perfect Stamp: 개근상 스페셜 이펙트", accent: "#5C7CFA" 
-  },
+  // 3. Monthly (3종)
+  { id: "m1", period: "Monthly", title: "Monthly Muse", goal: "이달의 크리에이터 5인 응원 및 소통", reward: "10,000P", detail: "💌 Letter Archive: 내가 보낸 팬레터 수집", accent: "#0071e3" },
+  { id: "m2", period: "Monthly", title: "Genre Master", goal: "이달의 테마(예: 레트로) 프레임 3종 수집", reward: "Theme Badge", detail: "🎨 Collector Book: 테마별 도감 완성", accent: "#339AF0" },
+  { id: "m3", period: "Monthly", title: "Perfect Attendance", goal: "한 달 20일 이상 앱 방문 달성", reward: "3,000P", detail: "📅 Perfect Stamp: 개근상 스페셜 이펙트", accent: "#5C7CFA" },
 
-  // 4. Quarterly
-  { 
-    id: "q1", period: "Quarterly", title: "Quarterly Explorer", 
-    goal: "분기 내 10개 도시 키오스크 방문", reward: "Limited Badge", 
-    detail: "✈️ City Passport: 지역 한정 디지털 스탬프", accent: "#34C759" 
-  },
-  { 
-    id: "q2", period: "Quarterly", title: "Seasonal Palette", 
-    goal: "이번 계절의 컬러(예: 벚꽃 핑크) 프레임 수집", reward: "Season Frame", 
-    detail: "🌸 Season Collection: 계절 한정판 프레임 지급", accent: "#63E6BE" 
-  },
-  { 
-    id: "q3", period: "Quarterly", title: "Local Hopper", 
-    goal: "서로 다른 3개 핫플레이스(성수, 홍대, 강남) 방문", reward: "Travel Kit", 
-    detail: "🗺️ Explorer Map: 방문 지역 3D 맵 활성화", accent: "#20C997" 
-  },
+  // 4. Quarterly (3종)
+  { id: "q1", period: "Quarterly", title: "Quarterly Explorer", goal: "분기 내 10개 도시 키오스크 방문", reward: "Limited Badge", detail: "✈️ City Passport: 지역 한정 디지털 스탬프", accent: "#34C759" },
+  { id: "q2", period: "Quarterly", title: "Seasonal Palette", goal: "이번 계절의 컬러(예: 벚꽃 핑크) 프레임 수집", reward: "Season Frame", detail: "🌸 Season Collection: 계절 한정판 프레임 지급", accent: "#63E6BE" },
+  { id: "q3", period: "Quarterly", title: "Local Hopper", goal: "서로 다른 3개 핫플레이스(성수, 홍대, 강남) 방문", reward: "Travel Kit", detail: "🗺️ Explorer Map: 방문 지역 3D 맵 활성화", accent: "#20C997" },
 
-  // 5. Semi-Annual
-  { 
-    id: "s1", period: "Semi-Annual", title: "The Visionary", 
-    goal: "6개월간 꾸준한 창작 활동 기여", reward: "Silver Membership", 
-    detail: "🔑 Early Access Key: 신규 시즌 선공개 권한", accent: "#FF2D55" 
-  },
-  { 
-    id: "s2", period: "Semi-Annual", title: "Loyalty Loop", 
-    goal: "6개월 연속 '골드 등급' 유지", reward: "Black Card Skin", 
-    detail: "💳 Premium UI: 앱 전체 테마 변경 권한", accent: "#FF4D4D" 
-  },
-  { 
-    id: "s3", period: "Semi-Annual", title: "Top Fan Status", 
-    goal: "특정 크리에이터 채널 후원 랭킹 10위 진입", reward: "Fan Meeting", 
-    detail: "🎫 Private Ticket: 크리에이터 팬미팅 초대권", accent: "#F03E3E" 
-  },
+  // 5. Semi-Annual (3종)
+  { id: "s1", period: "Semi-Annual", title: "The Visionary", goal: "6개월간 꾸준한 창작 활동 기여", reward: "Silver Membership", detail: "🔑 Early Access Key: 신규 시즌 선공개 권한", accent: "#FF2D55" },
+  { id: "s2", period: "Semi-Annual", title: "Loyalty Loop", goal: "6개월 연속 '골드 등급' 유지", reward: "Black Card Skin", detail: "💳 Premium UI: 앱 전체 테마 변경 권한", accent: "#FF4D4D" },
+  { id: "s3", period: "Semi-Annual", title: "Top Fan Status", goal: "특정 크리에이터 채널 후원 랭킹 10위 진입", reward: "Fan Meeting", detail: "🎫 Private Ticket: 크리에이터 팬미팅 초대권", accent: "#F03E3E" },
 
-  // 6. Annual
-  { 
-    id: "a1", period: "Annual", title: "The Guardian", 
-    goal: "연간 최다 방문 및 후원 달성", reward: "Gold Membership", 
-    detail: "🎬 Year in Motion: 1년 활동 결산 무비 생성", accent: "#FFD700" 
-  },
-  { 
-    id: "a2", period: "Annual", title: "Time Capsule", 
-    goal: "작년 오늘 촬영한 프레임으로 다시 찍기", reward: "Memory Frame", 
-    detail: "⏳ Then & Now: 1년 전후 비교 콜라주 생성", accent: "#FAB005" 
-  },
-  { 
-    id: "a3", period: "Annual", title: "The Philanthropist", 
-    goal: "1년간 친구들에게 프레임 선물 10회 달성", reward: "Angel Wings", 
-    detail: "👼 Donor Badge: 닉네임 옆 천사 날개 아이콘", accent: "#FCC419" 
-  }
+  // 6. Annual (3종)
+  { id: "a1", period: "Annual", title: "The Guardian", goal: "연간 최다 방문 및 후원 달성", reward: "Gold Membership", detail: "🎬 Year in Motion: 1년 활동 결산 무비 생성", accent: "#FFD700" },
+  { id: "a2", period: "Annual", title: "Time Capsule", goal: "작년 오늘 촬영한 프레임으로 다시 찍기", reward: "Memory Frame", detail: "⏳ Then & Now: 1년 전후 비교 콜라주 생성", accent: "#FAB005" },
+  { id: "a3", period: "Annual", title: "The Philanthropist", goal: "1년간 친구들에게 프레임 선물 10회 달성", reward: "Angel Wings", detail: "👼 Donor Badge: 닉네임 옆 천사 날개 아이콘", accent: "#FCC419" }
 ];
 
 const strategyLayers = [
@@ -119,25 +47,15 @@ const strategyLayers = [
   { label: "Annual (명예)", desc: "최상위 헌사. 사용자의 1년을 기록하고 기념하여 평생의 파트너가 됩니다." }
 ];
 
-// ⚛️ Interactive Quest Card Component
+// ⚛️ Interactive Quest Card
 const QuestCard = ({ q }: { q: any }) => {
   const [status, setStatus] = useState<'idle' | 'claiming' | 'claimed'>('idle');
 
   const handleClaim = () => {
     if (status !== 'idle') return;
-    
-    // 1. Haptic Feedback
-    if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate([10, 30, 10]); 
-    }
-
-    // 2. Start Animation
+    if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([10, 30, 10]);
     setStatus('claiming');
-
-    // 3. Complete
-    setTimeout(() => {
-      setStatus('claimed');
-    }, 1500);
+    setTimeout(() => setStatus('claimed'), 1500);
   };
 
   return (
@@ -146,12 +64,16 @@ const QuestCard = ({ q }: { q: any }) => {
       onClick={handleClaim}
       style={{ '--accent': q.accent } as any}
     >
-      {/* 🎉 Particle Effects */}
       {status === 'claiming' && (
         <div className="confetti-container">
-          {[...Array(12)].map((_, i) => (
-            <span key={i} className={`confetti c${i}`} />
-          ))}
+          {[...Array(12)].map((_, i) => {
+            const angle = (i * 30) * (Math.PI / 180);
+            const x = (Math.cos(angle) * 80).toFixed(1);
+            const y = (Math.sin(angle) * 80).toFixed(1);
+            return (
+              <span key={i} className={`confetti c${i}`} style={{ '--tx': `${x}px`, '--ty': `${y}px` } as any} />
+            );
+          })}
         </div>
       )}
 
@@ -169,7 +91,6 @@ const QuestCard = ({ q }: { q: any }) => {
         <span className="detail-text">{q.detail}</span>
       </div>
 
-      {/* Interactive Button Area */}
       <div className="interaction-area">
         {status === 'idle' && <div className="tap-hint">Tap to Claim</div>}
         {status === 'claiming' && <div className="claiming-loader" />}
@@ -220,24 +141,16 @@ const QuestCard = ({ q }: { q: any }) => {
         .progress-bar-thin { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; overflow: hidden; margin-top: 16px; }
         .progress-active { position: absolute; height: 100%; top: 0; left: 0; border-radius: 2px; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); }
 
-        /* Confetti Animation */
         .confetti-container { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
         .confetti { position: absolute; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; top: 50%; left: 50%; opacity: 0; }
         
-        ${[...Array(12)].map((_, i) => {
-          // 🟢 Hydration Fix: toFixed(1)로 소수점 정밀도를 고정하고, Radian 변환 적용
-          const angle = (i * 30) * (Math.PI / 180);
-          const x = (Math.cos(angle) * 80).toFixed(1);
-          const y = (Math.sin(angle) * 80).toFixed(1);
-          
-          return `
-            .c${i} { animation: explode-${i} 0.8s ease-out forwards; }
-            @keyframes explode-${i} {
-              0% { transform: translate(0, 0) scale(1); opacity: 1; }
-              100% { transform: translate(${x}px, ${y}px) scale(0); opacity: 0; }
-            }
-          `;
-        }).join('')}
+        ${[...Array(12)].map((_, i) => `
+          .c${i} { animation: explode-${i} 0.8s ease-out forwards; }
+          @keyframes explode-${i} {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+          }
+        `).join('')}
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 80% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
@@ -251,7 +164,6 @@ export default function QuestSection() {
 
   return (
     <section className="section-island quest-dark-theme overflow-hidden">
-      {/* 🌊 Deep Blue Background */}
       <div className="bg-visuals">
         <div className="blob b1" />
         <div className="blob b2" />
@@ -266,7 +178,6 @@ export default function QuestSection() {
           />
         </div>
 
-        {/* 1. Quest Cards Grid */}
         <div className="quest-grid-refined">
           {questData.map((q, idx) => (
             <ScrollReveal key={q.id} delay={idx * 50}>
@@ -275,16 +186,22 @@ export default function QuestSection() {
           ))}
         </div>
 
-        {/* 2. Strategy Layer Info */}
         <div className="strategy-info-box">
           <h4 className="strategy-title">📋 전략적 퀘스트 레이어 (Strategy Layer)</h4>
           <div className="strategy-grid">
-            {strategyLayers.map((layer, i) => (
-              <div key={i} className="strategy-item">
-                <span className="layer-label" style={{ color: "#fff" }}>{layer.label}</span>
-                <p className="layer-desc">{layer.desc}</p>
-              </div>
-            ))}
+            {strategyLayers.map((layer, i) => {
+              // 🟢 각 주기에 맞는 대표 색상 매핑 (3개씩 묶여있으므로 i * 3)
+              const accentColor = questData[i * 3].accent;
+              
+              return (
+                <div key={i} className="strategy-item">
+                  <span className="layer-label" style={{ color: accentColor }}>
+                    {layer.label}
+                  </span>
+                  <p className="layer-desc">{layer.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
