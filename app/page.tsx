@@ -55,8 +55,6 @@ export default function Page() {
           <AppleWalletSection /> 
         </div>
 
-        <QuietRewardsSection />
-
         {/* Creator Economy Section (Self-contained Theme) */}
         <CreatorEconomySection />
 
@@ -73,13 +71,14 @@ export default function Page() {
 
         <BadgeSection />
 
+        <QuietRewardsSection />
+
+
         {/* Revenue Section (Self-contained Theme) */}
         <RevenueSection />
 
         {/* Partners Section (Self-contained Theme) */}
         <PartnersSection />
-
-        
 
         <div className="container">
            <SectionShell id="dosdonts" className="theme-clean">
