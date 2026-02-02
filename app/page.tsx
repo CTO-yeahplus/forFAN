@@ -19,8 +19,8 @@ import BusinessModelSection from "@/components/sections/BusinessModelSection";
 import QuestSection from "@/components/sections/QuestSection";
 import CorrelationSection from "@/components/sections/CorrelationSection";
 import BadgeSection from "@/components/sections/BadgeSection";
-
-
+import ContentStrategySection from "@/components/sections/ContentStrategySection"; // 👈 Import
+import DailyRitualSection from "@/components/sections/DailyRitualSection"; // 👈 추가
 
 export default function Page() {
   return (
@@ -58,8 +58,20 @@ export default function Page() {
         <QuietRewardsSection />
 
         {/* Creator Economy Section (Self-contained Theme) */}
-        
         <CreatorEconomySection />
+
+        {/* Content Strategy: 어떻게 확산되는가 (New!) */}
+        <ContentStrategySection />
+
+        <BusinessModelSection />
+
+        <QuestSection />
+
+        <DailyRitualSection />
+
+        <CorrelationSection />
+
+        <BadgeSection />
 
         {/* Revenue Section (Self-contained Theme) */}
         <RevenueSection />
@@ -67,13 +79,7 @@ export default function Page() {
         {/* Partners Section (Self-contained Theme) */}
         <PartnersSection />
 
-        <BusinessModelSection />
-
-        <QuestSection />
-
-        <CorrelationSection />
-
-        <BadgeSection />
+        
 
         <div className="container">
            <SectionShell id="dosdonts" className="theme-clean">

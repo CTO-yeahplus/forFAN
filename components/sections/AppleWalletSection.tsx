@@ -43,7 +43,7 @@ export default function AppleWalletSection() {
   const currentTier = tierConfig[tier];
 
   return (
-    <section className="section-wallet">
+    <section className="section-wallet" id="level">
       <div className="container">
         <div className="layout-split">
           {/* Left: Text Context */}

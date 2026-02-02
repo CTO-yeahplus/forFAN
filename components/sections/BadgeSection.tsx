@@ -35,7 +35,7 @@ export default function BadgeSection() {
   } as any;
 
   return (
-    <section className="section badge-showcase-theme">
+    <section className="section badge-showcase-theme" id="badge">
       <div className="container">
         <SectionHeader 
           title="Collection of Taste" 

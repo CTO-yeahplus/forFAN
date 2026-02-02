@@ -45,7 +45,7 @@ export default function CorrelationSection() {
   ];
 
   return (
-    <section className="section correlation-theme">
+    <section className="section correlation-theme" id="relation">
       <div className="container">
         <SectionHeader 
           title="Logic of Connection" 

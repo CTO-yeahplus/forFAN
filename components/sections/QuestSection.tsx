@@ -63,6 +63,7 @@ const QuestCard = ({ q }: { q: any }) => {
       className={`quest-card-v2 ${status}`} 
       onClick={handleClaim}
       style={{ '--accent': q.accent } as any}
+      id="quest"
     >
       {status === 'claiming' && (
         <div className="confetti-container">

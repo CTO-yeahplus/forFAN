@@ -19,7 +19,7 @@ export default function CreatorEconomySection() {
   }, []);
 
   return (
-    <section className="section creator-section">
+    <section className="section creator-section" id="brandowner">
       <div className="container">
         
         {/* 1. Main Process Flow */}

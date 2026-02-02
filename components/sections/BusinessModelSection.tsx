@@ -48,7 +48,7 @@ export default function BusinessModelSection() {
   ];
 
   return (
-    <section className="section-island modern-orange-theme overflow-hidden">
+    <section className="section-island modern-orange-theme overflow-hidden" id="creator">
       {/* 🌊 Dynamic Background Elements */}
       <div className="bg-animation-container">
         <div className="aurora-blob a1" />
