@@ -19,8 +19,9 @@ import BusinessModelSection from "@/components/sections/BusinessModelSection";
 import QuestSection from "@/components/sections/QuestSection";
 import CorrelationSection from "@/components/sections/CorrelationSection";
 import BadgeSection from "@/components/sections/BadgeSection";
-import ContentStrategySection from "@/components/sections/ContentStrategySection"; // 👈 Import
-import DailyRitualSection from "@/components/sections/DailyRitualSection"; // 👈 추가
+import ContentStrategySection from "@/components/sections/ContentStrategySection"; 
+import DailyRitualSection from "@/components/sections/DailyRitualSection"; 
+import TimelineSection from "@/components/sections/TimelineSection"; 
 
 export default function Page() {
   return (
@@ -55,31 +56,24 @@ export default function Page() {
           <AppleWalletSection /> 
         </div>
 
-        {/* Creator Economy Section (Self-contained Theme) */}
+        {/* 3. Creator Ecosystem (Phase 2 Focus) */}
         <CreatorEconomySection />
-
-        {/* Content Strategy: 어떻게 확산되는가 (New!) */}
         <ContentStrategySection />
 
+        {/* 4. Business & Roadmap */}
         <BusinessModelSection />
 
+        {/* 5. Engagement & Rewards (Phase 1 Detail) */}
         <QuestSection />
-
         <DailyRitualSection />
-
         <CorrelationSection />
-
         <BadgeSection />
-
         <QuietRewardsSection />
 
-
-        {/* Revenue Section (Self-contained Theme) */}
+        {/* 6. Conclusion */}
         <RevenueSection />
-
-        {/* Partners Section (Self-contained Theme) */}
         <PartnersSection />
-
+        <TimelineSection /> {/* 👈 Roadmap 배치 */}
         <div className="container">
            <SectionShell id="dosdonts" className="theme-clean">
              <DosDontsSection />
