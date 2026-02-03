@@ -382,6 +382,7 @@ export const navLinks = [
   { href: "#quiet", label: "보상받기" },
   { href: "#revenue", label: "24/7 멈추지않는 매출" },
   { href: "#partners", label: "파트너 이점" },
+  { href: "#roadmap", label: "로드맵" },
   { href: "#dosdonts", label: "DO / DON'T" },
 ] as const;
 
