@@ -371,14 +371,15 @@ export const dontList = [
 
 export const navLinks = [
   { href: "#principle", label: "원칙" },
-  { href: "#journey", label: "여정 지도" },
-  { href: "#experience", label: "고객 경험(탭)" },
-  { href: "#quiet", label: "Quiet Rewards" },
-  { href: "#brandowner", label: "브랜드주인되기" },
-  { href: "#playbook", label: "센언니들의 노는법(확장)" },
+  { href: "#journey", label: "사용자 여정지도" },
+  { href: "#experience", label: "사용자 경험(탭)" },
+  { href: "#level", label: "경험 Tier멤버" },
+  { href: "#brandowner", label: "브랜드 주인되기" },
+  { href: "#playbook", label: "노는법 따라하기" },
   { href: "#creator", label: "작가되기" },
-  { href: "#quest", label: "MyStory/History" },
-  { href: "#level", label: "Tier멤버쉽" },
+  { href: "#quest", label: "기록하기" },
+  
+  { href: "#quiet", label: "보상받기" },
   { href: "#revenue", label: "24/7 멈추지않는 매출" },
   { href: "#partners", label: "파트너 이점" },
   { href: "#dosdonts", label: "DO / DON'T" },
